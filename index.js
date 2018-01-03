@@ -50,19 +50,21 @@ module.exports = require('angular')
             }
         };
     }])
-    .directive('loadingContainer', [function () {
+    .directive('loadingContainer', ['$parse', function ($parse) {
         var style;
 
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                var i = 0;
+                var i = 0, static = false;
 
                 if (!style) {
                     style = css([
+                        '@keyframes rotate { 0% { transform: perspective(120px) rotateX(0deg) rotateY(0deg); } 50% { transform: perspective(120px) rotateX(-180deg) rotateY(0deg); } 100% { transform: perspective(120px) rotateX(-180deg) rotateY(-180deg); } }',
+                        '@keyframes background { 0% { background-color: #27ae60; } 50% { background-color: #9b59b6; } 100% { background-color: #c0392b; } }',
                         '.loading-container { position: relative; }',
                         '.loading-container.loading::before { position: absolute; display: block; content: " "; left: 0; top: 0; width: 100%; height: 100%; background: #FFF; opacity: .8; z-index: 10; }',
-                        '.loading-container.loading::after { position: absolute; display: block; pointer-events: none; content: ""; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px; z-index: 11; animation: rotate 1.4s infinite ease-in-out, background 1.4s infinite ease-in-out alternate; }'
+                        '.loading-container.loading::after { position: absolute; display: block; pointer-events: none; content: " "; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px; z-index: 11; animation: rotate 1.4s infinite ease-in-out, background 1.4s infinite ease-in-out alternate; }'
                     ]);
                 }
 
@@ -80,6 +82,22 @@ module.exports = require('angular')
                             }
                         });
                 };
+
+                scope.$watch(() => $parse(attrs.loadingContainerStatic)(scope), function (data) {
+                    if (!!data != static) {
+                        static = !!data;
+
+                        if (data) {
+                            if (i++ == 0) {
+                                element.addClass('loading');
+                            }
+                        } else {
+                            if (--i == 0) {
+                                element.removeClass('loading');
+                            }
+                        }
+                    }
+                });
             }
         };
     }])
