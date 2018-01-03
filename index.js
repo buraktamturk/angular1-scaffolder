@@ -19,7 +19,7 @@ module.exports = require('angular')
             },
             transclude: true,
             template: '<div style="display:block;position:relative;"><div class="aspect-ratio-inner" style="position:relative;"><div style="display:block;position:absolute;left:0;right:0;top:0;bottom:0;" ng-transclude></div></div></div>',
-            link(scope, element) {
+            link: function (scope, element) {
                 scope.$watch('aspectRatio', function (data) {
                     element.find('.aspect-ratio-inner').css({
                         paddingTop: (data * 100) + '%'
@@ -32,7 +32,7 @@ module.exports = require('angular')
         return {
             restrict: 'A',
             scope: true,
-            link(scope, element, attrs) {
+            link: function(scope, element, attrs) {
                 var i = 0;
 
                 scope[attrs.disabler ||  'disable'] = function (promise) {

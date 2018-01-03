@@ -1,6 +1,6 @@
 {
   "name": "angular1-scaffolder",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Basic stuff for Angular 1.x applications",
   "main": "index.js",
   "scripts": {
