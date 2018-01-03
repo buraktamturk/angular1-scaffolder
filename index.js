@@ -83,7 +83,7 @@ module.exports = require('angular')
                         });
                 };
 
-                scope.$watch(() => $parse(attrs.loadingContainerStatic)(scope), function (data) {
+                scope.$watch(function () { return $parse(attrs.loadingContainerStatic)(scope); }, function (data) {
                     if (!!data != static) {
                         static = !!data;
 
