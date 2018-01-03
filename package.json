@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Burak Tamtürk <buraktamturk@gmail.com>",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "repository": "github:buraktamturk/angular1-scaffolder",
+  "bugs": {
+    "url": "https://github.com/buraktamturk/angular1-scaffolder/issues"
+  }
 }
